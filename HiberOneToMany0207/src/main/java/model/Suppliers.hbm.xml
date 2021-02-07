@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="true">
+    <class catalog="javadb" dynamic-insert="false" dynamic-update="false" mutable="true" name="model.Suppliers" optimistic-lock="version" polymorphism="implicit" select-before-update="false" table="suppliers">
+        <id name="supId" type="int">
+            <column name="SUP_ID"/>
+            <generator class="assigned"/>
+        </id>
+        <property generated="never" lazy="false" name="supName" optimistic-lock="true" type="string" unique="false">
+            <column length="40" name="SUP_NAME" not-null="true"/>
+        </property>
+        <property generated="never" lazy="false" name="street" optimistic-lock="true" type="string" unique="false">
+            <column length="40" name="STREET" not-null="true"/>
+        </property>
+        <property generated="never" lazy="false" name="city" optimistic-lock="true" type="string" unique="false">
+            <column length="20" name="CITY" not-null="true"/>
+        </property>
+        <property generated="never" lazy="false" name="state" optimistic-lock="true" type="string" unique="false">
+            <column length="2" name="STATE" not-null="true"/>
+        </property>
+        <property generated="never" lazy="false" name="zip" optimistic-lock="true" type="string" unique="false">
+            <column length="5" name="ZIP"/>
+        </property>
+        <set embed-xml="true" fetch="select" inverse="true" lazy="true" mutable="true" name="coffeeses" optimistic-lock="true" sort="unsorted" table="coffees">
+            <key on-delete="noaction">
+                <column name="SUP_ID" not-null="true"/>
+            </key>
+            <one-to-many class="model.Coffees" embed-xml="true" not-found="exception"/>
+        </set>
+    </class>
+</hibernate-mapping>

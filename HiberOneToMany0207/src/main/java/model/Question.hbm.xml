@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="true">
+    <class catalog="javadb" dynamic-insert="false" dynamic-update="false" mutable="true" name="model.Question" optimistic-lock="version" polymorphism="implicit" select-before-update="false" table="question">
+        <id name="qid" type="int">
+            <column name="qid"/>
+            <generator class="increment"/>
+        </id>
+        <property generated="never" lazy="false" name="qname" optimistic-lock="true" type="string" unique="false">
+            <column length="80" name="qname"/>
+        </property>
+        
+        <set cascade="save-update" embed-xml="true" fetch="select" inverse="true" lazy="true" mutable="true" name="answers" optimistic-lock="true" sort="unsorted" table="answer">
+            <key on-delete="noaction">
+                <column name="qid" not-null="true"/>
+            </key>
+            <one-to-many class="model.Answer" embed-xml="true" not-found="exception"/>
+        </set>
+    </class>
+</hibernate-mapping>

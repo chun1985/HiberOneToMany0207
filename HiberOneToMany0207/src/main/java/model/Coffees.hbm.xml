@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping auto-import="true" default-access="property" default-cascade="none" default-lazy="true">
+    <class catalog="javadb" dynamic-insert="false" dynamic-update="false" mutable="true" name="model.Coffees" optimistic-lock="version" polymorphism="implicit" select-before-update="false" table="coffees">
+        <id name="cofName" type="string">
+            <column length="32" name="COF_NAME"/>
+            <generator class="assigned"/>
+        </id>
+        <many-to-one class="model.Suppliers" embed-xml="true" fetch="select" insert="true" name="suppliers" not-found="exception" optimistic-lock="true" unique="false" update="true">
+            <column name="SUP_ID" not-null="true"/>
+        </many-to-one>
+        <property generated="never" lazy="false" name="price" optimistic-lock="true" type="big_decimal" unique="false">
+            <column name="PRICE" not-null="true" precision="10"/>
+        </property>
+        <property generated="never" lazy="false" name="sales" optimistic-lock="true" type="int" unique="false">
+            <column name="SALES" not-null="true"/>
+        </property>
+        <property generated="never" lazy="false" name="total" optimistic-lock="true" type="int" unique="false">
+            <column name="TOTAL" not-null="true"/>
+        </property>
+    </class>
+</hibernate-mapping>
